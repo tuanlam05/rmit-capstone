@@ -53,7 +53,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-sm space-y-6 w-full">
       <div className="space-y-1 text-center">
         <h1 className="text-2xl font-bold tracking-tight">Create account</h1>
         <p className="text-sm text-zinc-500">Get started for free</p>
