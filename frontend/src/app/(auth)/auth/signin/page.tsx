@@ -62,18 +62,24 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="flex flex-row">
-      <div className="bg-foreground h-screen w-[45%] relative">
-        <div className="absolute top-10 left-10 flex flex-row gap-4 items-center">
-          <div className="bg-background rounded-lg p-3 text-zinc-900 dark:text-white w-10 h-10 flex items-center justify-center">23</div>
-          <h1 className='text-background text-lg font-bold'>Team 23</h1>
+    <div className="flex flex-row w-full">
+      <div className="bg-foreground relative h-screen w-[45%]">
+        <div className="absolute top-10 left-10 flex flex-row items-center gap-4">
+          <div className="bg-background flex h-10 w-10 items-center justify-center rounded-lg p-3 text-zinc-900 dark:text-white">
+            23
+          </div>
+          <h1 className="text-background text-lg font-bold">Team 23</h1>
         </div>
-        <div className='w-full h-full flex items-start justify-center px-30 flex-col gap-3'>
-          <h1 className='text-4xl text-background font-bold text-left'>Telstra Health-UX Research Companion — Team 1</h1>
-          <p className='text-2xl text-zinc-500 text-left'>Team info, notes and settings for the capstone project.</p>
+        <div className="flex h-full w-full flex-col items-start justify-center gap-3 px-30">
+          <h1 className="text-background text-left text-4xl font-bold">
+            Telstra Health-UX Research Companion — Team 1
+          </h1>
+          <p className="text-left text-2xl text-zinc-500">
+            Team info, notes and settings for the capstone project.
+          </p>
         </div>
       </div>
-      <div className="bg-background h-screen w-[55%] space-y-6 py-30 flex flex-col justify-center px-40">
+      <div className="bg-background flex h-screen w-[55%] flex-col justify-center space-y-6 px-45 py-30">
         <div className="space-y-1 text-center">
           <h1 className="text-foreground text-left text-2xl font-bold tracking-tight">Sign in</h1>
           <p className="text-left text-sm text-zinc-500">Enter your credentials to continue</p>
@@ -125,7 +131,7 @@ export default function SignInPage() {
               autoComplete="email"
               aria-invalid={!!errors.email}
               aria-describedby={errors.email ? 'email-error' : undefined}
-              className="focus:ring-theme w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:ring-2 focus:outline-none aria-invalid:border-red-500 dark:border-zinc-700 dark:bg-zinc-900"
+              className="focus-visible:ring-theme w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:outline-none focus-visible:ring-2 aria-invalid:border-red-500 aria-invalid:focus-visible:ring-red-500 dark:border-zinc-700 dark:bg-zinc-900"
               placeholder="you@example.com"
               {...register('email')}
             />
@@ -148,7 +154,7 @@ export default function SignInPage() {
               autoComplete="current-password"
               aria-invalid={!!errors.password}
               aria-describedby={errors.password ? 'password-error' : undefined}
-              className="focus:ring-theme w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:ring-2 focus:outline-none aria-invalid:border-red-500 dark:border-zinc-700 dark:bg-zinc-900"
+              className="focus-visible:ring-theme w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:outline-none focus-visible:ring-2 aria-invalid:border-red-500 aria-invalid:focus-visible:ring-red-500 dark:border-zinc-700 dark:bg-zinc-900"
               placeholder="••••••••"
               {...register('password')}
             />
