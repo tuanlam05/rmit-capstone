@@ -33,7 +33,7 @@ export default function SignUpPage() {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle()
-      router.replace('/dashboard')
+      router.replace('/teaminfo')
     } catch {
       toast.error('Google sign-in failed. Please try again.')
     }
