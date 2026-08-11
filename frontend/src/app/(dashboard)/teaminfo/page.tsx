@@ -1,11 +1,13 @@
 'use client'
 
+import { cn } from '@/lib/utils'
+import { useState } from 'react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 interface TeamMember {
   name: string
-  role: string
+  role?: string
   img?: string
   blurb?: string
 }
@@ -48,51 +50,108 @@ const teamMembers: TeamMember[] = [
   },
 ]
 
+function getInitials(name: string) {
+  const words = name.trim().split(/\s+/)
+
+  if (!words[0]) return ''
+
+  return `${words[0][0]}${words.at(-1)?.[0] ?? ''}`.toUpperCase()
+}
+
 export default function TeamInfo() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-[#FAFAFA] dark:bg-[#09090B]">
       <div className="relative">
         <h1 className="text-2xl font-bold tracking-tight">Team 23</h1>
         <p className="mt-1 text-sm text-zinc-500">
           The people behind Telstra Health - UX Research Companion
         </p>
-        <div className="text-foreground absolute top-1 right-5 flex h-6.5 w-22.5 items-center justify-center rounded-full border border-[#E4E4E7] bg-[#F4F4F5] text-center text-xs dark:border-[#27272A] dark:bg-[#18181B]">
+        <div className="text-foreground absolute top-1 right-5 flex h-6.5 w-22.5 items-center justify-center rounded-full border border-[#E4E4E7] bg-[#F4F4F5] text-center text-xs dark:border-[#3F3F46] dark:bg-[#18181B]">
           {teamMembers.length} members
         </div>
       </div>
       <div className="flex flex-wrap gap-10 px-5">
-        {teamMembers.map(({ name, role, img, blurb }) => (
-          <div
-            className="flex w-73.75 flex-col items-center justify-start rounded-md border border-[#E4E4E7] px-5 dark:border-[#27272A] dark:bg-[#18181B]"
-            key={name}
-          >
-            <SkeletonTheme baseColor="#202020" highlightColor="#444">
-              <div className="photoContainer my-5 flex h-65 w-65">
-                {img ? (
-                  <img className="h-65 w-65 rounded-lg object-cover" alt={name} src={img} />
-                ) : (
-                  <Skeleton width={260} height={260} containerClassName="flex-1 rounded-lg" />
+        {teamMembers.map(({ name, role, img, blurb }) => {
+          const [flipped, setFlipped] = useState(false)
+
+          return (
+            <div className="h-122.5 w-73.75 perspective-[1000px]" key={name}>
+              <div
+                className={cn(
+                  'relative h-full w-full transition-transform duration-500 transform-3d',
+                  flipped && 'transform-[rotateY(180deg)]'
                 )}
-              </div>
-              <div className="textContainer flex w-full min-w-0 flex-col items-start gap-2 p-1">
-                <p className="w-full text-lg font-semibold">{name}</p>
-                <div className="text-foreground flex h-6.5 items-center justify-center rounded-full border border-[#E4E4E7] bg-[#F4F4F5] p-3 text-center text-xs dark:border-[#27272A] dark:bg-[#18181B]">
-                  {role}
+              >
+                <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-start rounded-md border border-[#E4E4E7] px-5 backface-hidden dark:border-[#27272A] dark:bg-[#18181B]">
+                  <div className="photoContainer my-5 flex h-65 w-65">
+                    {img ? (
+                      <img className="h-65 w-65 rounded-lg object-cover" alt={name} src={img} />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center rounded-md bg-[#F4F4F5] text-lg text-[34px] text-zinc-500 uppercase dark:bg-[#27272a]">
+                        {getInitials(name)}
+                      </div>
+                    )}
+                  </div>
+                  <div className="textContainer flex w-full min-w-0 flex-1 flex-col items-start gap-2 p-1">
+                    <p className="w-full text-lg font-semibold">{name}</p>
+                    <div
+                      className={cn(
+                        '-ml-1 flex h-6.5 items-center justify-center rounded-full border bg-[#F4F4F5] p-3 text-center text-xs',
+                        role
+                          ? 'border-[#E4E4E7] dark:border-0 dark:bg-[#27272A] text-[#3F3F46] dark:text-[#D4D4D8]'
+                          : 'border-dashed border-[#D4D4D8] dark:border-[#3F3F46] dark:bg-[#09090B] text-[#A1A1AA]'
+                      )}
+                    >
+                      {role || 'Role TBC'}
+                    </div>
+                    {blurb && (
+                      <div className="mb-5 flex w-full flex-1 flex-col justify-between">
+                        <p className="text-md line-clamp-3 flex-1 text-[#71717A] dark:text-[#A1A1AA]">
+                          "{blurb}"
+                        </p>
+                        <button
+                          className="text-theme w-fit cursor-pointer text-sm hover:underline"
+                          onClick={() => setFlipped(true)}
+                        >
+                          View full
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                {blurb ? (
-                  <div className="mb-5 w-full">
-                    <p className="text-md line-clamp-3 text-zinc-400">"{blurb}"</p>
-                    <button className="text-theme cursor-pointer text-sm hover:underline">
-                      Read more
+
+                <div className="absolute inset-0 flex h-full w-full transform-[rotateY(180deg)] flex-col items-center justify-start rounded-md border border-[#E4E4E7] px-5 backface-hidden dark:border-[#27272A] dark:bg-[#18181B]">
+                  <div className="my-5 flex h-full w-full flex-col items-start justify-start gap-1">
+                    <p className="mb-2 text-lg font-semibold">{name}</p>
+
+                    <div
+                      className={cn(
+                        '-ml-1 flex h-6.5 items-center justify-center rounded-full border bg-[#F4F4F5] p-3 text-center text-xs',
+                        role
+                          ? 'border-[#E4E4E7] dark:border-0 dark:bg-[#27272A] text-[#3F3F46] dark:text-[#D4D4D8]'
+                          : 'border-dashed border-[#D4D4D8] dark:border-[#3F3F46] dark:bg-[#09090B] text-[#A1A1AA]'
+                      )}
+                    >
+                      {role || 'Role TBC'}
+                    </div>
+
+                    <p className="text-md flex-1 leading-relaxed text-[#71717A] dark:text-[#A1A1AA]">
+                      "{blurb}"
+                    </p>
+
+                    <button
+                      type="button"
+                      onClick={() => setFlipped(false)}
+                      className="text-theme mt-4 w-fit cursor-pointer text-sm hover:underline"
+                    >
+                      Back
                     </button>
                   </div>
-                ) : (
-                  <Skeleton width="100%" count={5} containerClassName="flex-1" />
-                )}
+                </div>
               </div>
-            </SkeletonTheme>
-          </div>
-        ))}
+            </div>
+          )
+        })}
       </div>
     </div>
   )
