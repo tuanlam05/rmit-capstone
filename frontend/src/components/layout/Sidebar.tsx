@@ -36,10 +36,10 @@ export function Sidebar() {
               key={href}
               href={href}
               className={cn(
-                'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-zinc-600 transition-colors dark:text-zinc-400',
+                'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors dark:text-zinc-400',
                 selected
-                  ? 'text-foreground border border-[#E4E4E7] dark:bg-[#27272A] dark:border-[#3F3F46] shadow-lg'
-                  : 'hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-white'
+                  ? 'text-[#18181B] dark:text-[#fafafa] border border-[#E4E4E7] dark:bg-[#27272A] dark:border-[#3F3F46] shadow-lg'
+                  : 'hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-white text-[#52525B] dark:text-[#A1A1AA]'
               )}
             >
               <Icon className="h-4 w-4 shrink-0" />
