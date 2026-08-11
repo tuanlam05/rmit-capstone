@@ -135,8 +135,8 @@ export default function SignInPage() {
         </div>
 
         {errors.form && (
-          <div className="rounded-md border border-[#FECACA] bg-[#FEF2F2] py-2 px-5 h-10.5 flex justify-start items-center">
-            <p className="text-dark-error text-sm font-geist">{errors.form.message}</p>
+          <div className="rounded-md border border-[#FECACA] bg-[#FEF2F2] dark:border-[#7F1D1D] dark:bg-[#450A0A] py-2 px-5 h-10.5 flex justify-start items-center">
+            <p className="text-dark-error dark:text-[#FCA5A5] text-sm font-geist">{errors.form.message}</p>
           </div>
         )}
 
