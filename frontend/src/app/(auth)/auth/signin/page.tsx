@@ -17,6 +17,7 @@ export default function SignInPage() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -47,7 +48,20 @@ export default function SignInPage() {
       if (error instanceof Error && error.message.includes('email-not-verified')) {
         toast.error('Please verify your email before signing in.')
       } else {
-        toast.error('Invalid email or password')
+        const errorMsg = 'Invalid email or password.'
+        // toast.error('')
+
+        setError('form', {
+          message: errorMsg,
+        })
+
+        setError('email', {
+          message: errorMsg,
+        })
+
+        setError('password', {
+          message: errorMsg,
+        })
       }
     }
   }
@@ -62,7 +76,7 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="flex flex-row w-full">
+    <div className="flex w-full flex-row">
       <div className="bg-foreground relative h-screen w-[45%]">
         <div className="absolute top-10 left-10 flex flex-row items-center gap-4">
           <div className="bg-background flex h-10 w-10 items-center justify-center rounded-lg p-3 text-zinc-900 dark:text-white">
@@ -88,7 +102,7 @@ export default function SignInPage() {
         <button
           type="button"
           onClick={handleGoogleSignIn}
-          className="flex w-full items-center justify-center gap-3 rounded-md border border-zinc-300 bg-white px-4 py-2.5 text-sm font-medium shadow-sm transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+          className="transition flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-zinc-300 bg-white px-4 py-2.5 text-sm font-medium shadow-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800"
         >
           <svg className="h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
             <path
@@ -120,6 +134,12 @@ export default function SignInPage() {
           </div>
         </div>
 
+        {errors.form && (
+          <div className="rounded-md border border-[#FECACA] bg-[#FEF2F2] dark:border-[#7F1D1D] dark:bg-[#450A0A] py-2 px-5 h-10.5 flex justify-start items-center">
+            <p className="text-dark-error dark:text-[#FCA5A5] text-sm font-geist">{errors.form.message}</p>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-1.5">
             <label htmlFor="email" className="text-sm font-medium">
@@ -131,12 +151,12 @@ export default function SignInPage() {
               autoComplete="email"
               aria-invalid={!!errors.email}
               aria-describedby={errors.email ? 'email-error' : undefined}
-              className="focus-visible:ring-theme w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:outline-none focus-visible:ring-2 aria-invalid:border-red-500 aria-invalid:focus-visible:ring-red-500 dark:border-zinc-700 dark:bg-zinc-900"
-              placeholder="you@example.com"
+              className="transition focus-visible:ring-dark-theme w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:outline-none focus-visible:ring-2 aria-invalid:border-error-red aria-invalid:focus-visible:ring-error-red dark:border-zinc-700 dark:bg-zinc-900"
+              placeholder="me@example.com"
               {...register('email')}
             />
             {errors.email && (
-              <p id="email-error" className="text-xs text-red-500" role="alert">
+              <p id="email-error" className="text-xs text-error-red" role="alert">
                 {errors.email.message}
               </p>
             )}
@@ -154,12 +174,12 @@ export default function SignInPage() {
               autoComplete="current-password"
               aria-invalid={!!errors.password}
               aria-describedby={errors.password ? 'password-error' : undefined}
-              className="focus-visible:ring-theme w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:outline-none focus-visible:ring-2 aria-invalid:border-red-500 aria-invalid:focus-visible:ring-red-500 dark:border-zinc-700 dark:bg-zinc-900"
+              className="transition focus-visible:ring-dark-theme w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:outline-none focus-visible:ring-2 aria-invalid:border-error-red aria-invalid:focus-visible:ring-error-red dark:border-zinc-700 dark:bg-zinc-900"
               placeholder="••••••••"
               {...register('password')}
             />
             {errors.password && (
-              <p id="password-error" className="text-xs text-red-500" role="alert">
+              <p id="password-error" className="text-xs text-error-red" role="alert">
                 {errors.password.message}
               </p>
             )}
@@ -168,7 +188,7 @@ export default function SignInPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-md bg-black px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+            className="w-full cursor-pointer rounded-md bg-black px-4 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
           >
             {isSubmitting ? 'Signing in…' : 'Sign in'}
           </button>
@@ -176,7 +196,7 @@ export default function SignInPage() {
 
         <p className="text-center text-sm text-zinc-500">
           Don&apos;t have an account?{' '}
-          <Link href="/auth/signup" className="text-theme dark:theme font-medium hover:underline">
+          <Link href="/auth/signup" className="text-theme cursor-pointer font-bold hover:underline">
             Create one
           </Link>
         </p>

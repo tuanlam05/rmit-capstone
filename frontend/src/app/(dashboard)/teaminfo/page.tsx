@@ -1,53 +1,157 @@
 'use client'
 
+import { cn } from '@/lib/utils'
+import { useState } from 'react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 interface TeamMember {
   name: string
-  role: string
+  role?: string
   img?: string
   blurb?: string
 }
 
 const teamMembers: TeamMember[] = [
-  { name: 'Vu Ngoc Chau', role: 'Project Manager' },
-  { name: 'Shehryar Shaukat', role: 'Business Analyst' },
-  { name: 'Andi Jagila', role: 'UX Designer' },
-  { name: 'Lam Manh Tuan', role: 'Developer 1' },
-  { name: 'Rishi Sood', role: 'Developer 2' },
+  {
+    name: 'Vu Ngoc Chau',
+    role: 'Project Manager',
+    img: '/teaminfo/chau.jpg',
+    blurb:
+      'Hello, I’m Chau, a third-year Bachelor of IT student majoring in Digital Innovation. I’m particularly interested in project management and enjoy coordinating teams, solving problems, and keeping projects on track to deliver successful outcomes.',
+  },
+  {
+    name: 'Shehryar Shaukat',
+    role: 'Business Analyst',
+    img: '/teaminfo/shehryar.jpg',
+    blurb:
+      'hi, im Shehryar, a final year computer science student with expertise in software development, data analytics and business analysis. Interested in AI, user focused solution and turning requirements into real products.',
+  },
+  {
+    name: 'Andi Jagila',
+    role: 'UX Designer',
+    img: '/teaminfo/andi.jpg',
+    blurb:
+      'hi! I’m Andi, a final year IT student working on the UX side of the project. I focus on creating clear, intuitive and user friendly experiences that make the product easy and enjoyable to use',
+  },
+  {
+    name: 'Lam Manh Tuan',
+    role: 'Developer 1',
+    img: '/teaminfo/nick.jpg',
+    blurb:
+      "Hey! I'm Tuan, a third-year RMIT student majoring in Artificial Intelligence! I'm one of the developers of this team, and hopefully I'll be able to contribute my full-stack experience to the project!",
+  },
+  {
+    name: 'Rishi Sood',
+    role: 'Developer 2',
+    img: '/teaminfo/rishi.jpg',
+    blurb:
+      "Hi there! I'm Rishi, an RMIT Computer Science student (Cybersecurity major) and one of the project's two developers. I focus on building the AI companion's functionality and bringing a security-minded eye to how it's all put together.",
+  },
 ]
+
+function getInitials(name: string) {
+  const words = name.trim().split(/\s+/)
+
+  if (!words[0]) return ''
+
+  return `${words[0][0]}${words.at(-1)?.[0] ?? ''}`.toUpperCase()
+}
 
 export default function TeamInfo() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Team Info</h1>
-        <p className="mt-1 text-sm text-zinc-500">Here are your team members:</p>
+    <div className="space-y-6 bg-[#FAFAFA] dark:bg-[#09090B]">
+      <div className="relative">
+        <h1 className="text-2xl font-bold tracking-tight">Team 23</h1>
+        <p className="mt-1 text-sm text-zinc-500">
+          The people behind Telstra Health - UX Research Companion
+        </p>
+        <div className="text-foreground absolute top-1 right-5 flex h-6.5 w-22.5 items-center justify-center rounded-full border border-[#E4E4E7] bg-[#F4F4F5] text-center text-xs dark:border-[#3F3F46] dark:bg-[#18181B]">
+          {teamMembers.length} members
+        </div>
       </div>
-      <div className="flex flex-col gap-2 px-5">
-        {teamMembers.map(({ name, role, img, blurb }) => (
-          <div className="flex w-full flex-row gap-3" key={name}>
-            <SkeletonTheme baseColor="#202020" highlightColor="#444">
-              <div className="photoContainer flex w-10 shrink-0 items-start justify-center p-1">
-                {img ? (
-                  <img className="h-10 w-10" alt={name} src={img} />
-                ) : (
-                  <Skeleton circle width={40} height={40} containerClassName="flex-1" />
+      <div className="flex flex-wrap gap-10 px-5">
+        {teamMembers.map(({ name, role, img, blurb }) => {
+          const [flipped, setFlipped] = useState(false)
+
+          return (
+            <div className="h-122.5 w-73.75 perspective-[1000px]" key={name}>
+              <div
+                className={cn(
+                  'relative h-full w-full transition-transform duration-500 transform-3d',
+                  flipped && 'transform-[rotateY(180deg)]'
                 )}
+              >
+                <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-start rounded-md border border-[#E4E4E7] px-5 backface-hidden dark:border-[#27272A] dark:bg-[#18181B]">
+                  <div className="photoContainer my-5 flex h-65 w-65">
+                    {img ? (
+                      <img className="h-65 w-65 rounded-lg object-cover" alt={name} src={img} />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center rounded-md bg-[#F4F4F5] text-lg text-[34px] text-zinc-500 uppercase dark:bg-[#27272a]">
+                        {getInitials(name)}
+                      </div>
+                    )}
+                  </div>
+                  <div className="textContainer flex w-full min-w-0 flex-1 flex-col items-start gap-2 p-1">
+                    <p className="w-full text-lg font-semibold">{name}</p>
+                    <div
+                      className={cn(
+                        '-ml-1 flex h-6.5 items-center justify-center rounded-full border bg-[#F4F4F5] p-3 text-center text-xs',
+                        role
+                          ? 'border-[#E4E4E7] dark:border-0 dark:bg-[#27272A] text-[#3F3F46] dark:text-[#D4D4D8]'
+                          : 'border-dashed border-[#D4D4D8] dark:border-[#3F3F46] dark:bg-[#09090B] text-[#A1A1AA]'
+                      )}
+                    >
+                      {role || 'Role TBC'}
+                    </div>
+                    {blurb && (
+                      <div className="mb-5 flex w-full flex-1 flex-col justify-between">
+                        <p className="text-md line-clamp-3 flex-1 text-[#71717A] dark:text-[#A1A1AA]">
+                          "{blurb}"
+                        </p>
+                        <button
+                          className="text-theme w-fit cursor-pointer text-sm hover:underline"
+                          onClick={() => setFlipped(true)}
+                        >
+                          View full
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="absolute inset-0 flex h-full w-full transform-[rotateY(180deg)] flex-col items-center justify-start rounded-md border border-[#E4E4E7] px-5 backface-hidden dark:border-[#27272A] dark:bg-[#18181B]">
+                  <div className="my-5 flex h-full w-full flex-col items-start justify-start gap-1">
+                    <p className="mb-2 text-lg font-semibold">{name}</p>
+
+                    <div
+                      className={cn(
+                        '-ml-1 flex h-6.5 items-center justify-center rounded-full border bg-[#F4F4F5] p-3 text-center text-xs',
+                        role
+                          ? 'border-[#E4E4E7] dark:border-0 dark:bg-[#27272A] text-[#3F3F46] dark:text-[#D4D4D8]'
+                          : 'border-dashed border-[#D4D4D8] dark:border-[#3F3F46] dark:bg-[#09090B] text-[#A1A1AA]'
+                      )}
+                    >
+                      {role || 'Role TBC'}
+                    </div>
+
+                    <p className="text-md flex-1 leading-relaxed text-[#71717A] dark:text-[#A1A1AA]">
+                      "{blurb}"
+                    </p>
+
+                    <button
+                      type="button"
+                      onClick={() => setFlipped(false)}
+                      className="text-theme mt-4 w-fit cursor-pointer text-sm hover:underline"
+                    >
+                      Back
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="textContainer grow p-1">
-                <p className="text-sm font-medium">{name}</p>
-                <p className="text-xs text-zinc-500">{role}</p>
-                {blurb ? (
-                  <p className="text-md w-full text-zinc-400">{blurb}</p>
-                ) : (
-                  <Skeleton width="full" count={5} containerClassName="flex-1" />
-                )}
-              </div>
-            </SkeletonTheme>
-          </div>
-        ))}
+            </div>
+          )
+        })}
       </div>
     </div>
   )
