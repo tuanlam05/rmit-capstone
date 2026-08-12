@@ -48,6 +48,13 @@ const teamMembers: TeamMember[] = [
     blurb:
       "Hi there! I'm Rishi, an RMIT Computer Science student (Cybersecurity major) and one of the project's two developers. I focus on building the AI companion's functionality and bringing a security-minded eye to how it's all put together.",
   },
+  {
+    name: 'Test User',
+    role: 'Testing',
+    img: '',
+    blurb:
+      "Hi there! I'm tester, an RMIT Computer Science student (Cybersecurity major) and one of the project's two developers. I focus on building the AI companion's functionality and bringing a security-minded eye to how it's all put together.Hi there! I'm tester, an RMIT Computer Science student (Cybersecurity major) and one of the project's two developers. I focus on building the AI companion's functionality and bringing a security-minded eye to how it's all put together.Hi there! I'm tester, an RMIT Computer Science student (Cybersecurity major) and one of the project's two developers. I focus on building the AI companion's functionality and bringing a security-minded eye to how it's all put together.",
+  }
 ]
 
 function getInitials(name: string) {
