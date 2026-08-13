@@ -25,28 +25,28 @@ const teamMembers: TeamMember[] = [
     role: 'Business Analyst',
     img: '/teaminfo/shehryar.jpg',
     blurb:
-      'hi, im Shehryar, a final year computer science student with expertise in software development, data analytics and business analysis. Interested in AI, user focused solution and turning requirements into real products.',
+      'Hi, I’m Shehryar, a final-year Computer Science student with expertise in software development, data analytics, and business analysis. I’m interested in AI, user-focused solutions, and turning requirements into real products.',
   },
   {
     name: 'Andi Jagila',
     role: 'UX Designer',
     img: '/teaminfo/andi.jpg',
     blurb:
-      'hi! I’m Andi, a final year IT student working on the UX side of the project. I focus on creating clear, intuitive and user friendly experiences that make the product easy and enjoyable to use',
+      'Hi! I’m Andi, a final-year IT student working on the UX side of the project. I focus on creating clear, intuitive, and user-friendly experiences that make the product easy and enjoyable to use.',
   },
   {
     name: 'Lam Manh Tuan',
     role: 'Developer 1',
     img: '/teaminfo/nick.jpg',
     blurb:
-      "Hey! I'm Tuan, a third-year RMIT student majoring in Artificial Intelligence! I'm one of the developers of this team, and hopefully I'll be able to contribute my full-stack experience to the project!",
+      "Hey! I'm Tuan, a third-year RMIT student majoring in Artificial Intelligence. I'm one of the developers on this team, and hopefully, I'll be able to contribute my full-stack experience to the project!",
   },
   {
     name: 'Rishi Sood',
     role: 'Developer 2',
     img: '/teaminfo/rishi.jpg',
     blurb:
-      "Hi there! I'm Rishi, an RMIT Computer Science student (Cybersecurity major) and one of the project's two developers. I focus on building the AI companion's functionality and bringing a security-minded eye to how it's all put together.",
+      "Hi there! I'm Rishi, an RMIT Computer Science student majoring in Cybersecurity and one of the project's two developers. I focus on building the AI companion's functionality and bringing a security-minded eye to how it's all put together.",
   },
   {
     name: 'Team Member',
@@ -105,8 +105,8 @@ export default function TeamInfo() {
                       className={cn(
                         '-ml-1 flex h-6.5 items-center justify-center rounded-full border bg-[#F4F4F5] p-3 text-center text-xs',
                         role
-                          ? 'border-[#E4E4E7] dark:border-0 dark:bg-[#27272A] text-[#3F3F46] dark:text-[#D4D4D8]'
-                          : 'border-dashed border-[#D4D4D8] dark:border-[#3F3F46] dark:bg-[#09090B] text-[#A1A1AA]'
+                          ? 'border-[#E4E4E7] text-[#3F3F46] dark:border-0 dark:bg-[#27272A] dark:text-[#D4D4D8]'
+                          : 'border-dashed border-[#D4D4D8] text-[#A1A1AA] dark:border-[#3F3F46] dark:bg-[#09090B]'
                       )}
                     >
                       {role || 'Role TBC'}
@@ -128,23 +128,25 @@ export default function TeamInfo() {
                 </div>
 
                 <div className="absolute inset-0 flex h-full w-full transform-[rotateY(180deg)] flex-col items-center justify-start rounded-md border border-[#E4E4E7] px-5 backface-hidden dark:border-[#27272A] dark:bg-[#18181B]">
-                  <div className="my-5 flex h-full w-full flex-col items-start justify-start gap-1">
+                  <div className="my-5 flex h-full min-h-0 w-full flex-col items-start justify-start gap-1">
                     <p className="mb-2 text-lg font-semibold">{name}</p>
 
                     <div
                       className={cn(
                         '-ml-1 flex h-6.5 items-center justify-center rounded-full border bg-[#F4F4F5] p-3 text-center text-xs',
                         role
-                          ? 'border-[#E4E4E7] dark:border-0 dark:bg-[#27272A] text-[#3F3F46] dark:text-[#D4D4D8]'
-                          : 'border-dashed border-[#D4D4D8] dark:border-[#3F3F46] dark:bg-[#09090B] text-[#A1A1AA]'
+                          ? 'border-[#E4E4E7] text-[#3F3F46] dark:border-0 dark:bg-[#27272A] dark:text-[#D4D4D8]'
+                          : 'border-dashed border-[#D4D4D8] text-[#A1A1AA] dark:border-[#3F3F46] dark:bg-[#09090B]'
                       )}
                     >
                       {role || 'Role TBC'}
                     </div>
 
-                    <p className="text-md flex-1 leading-relaxed text-[#71717A] dark:text-[#A1A1AA]">
-                      "{blurb}"
-                    </p>
+                    <div className="mt-2 min-h-0 flex-1 overflow-y-scroll">
+                      <p className="text-md flex-1 leading-relaxed text-[#71717A] dark:text-[#A1A1AA]">
+                        "{blurb}"
+                      </p>
+                    </div>
 
                     <button
                       type="button"
